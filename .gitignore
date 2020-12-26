@@ -1,0 +1,10 @@
+# IDE
+.idea/
+
+# Virtual environment
+venv/
+
+# Package files
+build/
+dist/
+capek.egg-info/
