@@ -5,10 +5,10 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setuptools.setup(
     name='capek',
-    version='0.1.7',
+    version='0.8.0',
     author='dikuchan',
     author_email='dikuchan@yahoo.com',
-    description='A template for TORCS SCR robots',
+    description='A convenient template for developing racing robots',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/dikuchan/capek',
@@ -16,7 +16,7 @@ setuptools.setup(
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Operating System :: POSIX :: Linux',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
     ],
