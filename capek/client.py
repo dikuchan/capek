@@ -68,7 +68,8 @@ class Client:
         while not shutdown:
             while True:
                 self.logger.warning(f'Sending ID: {self.id}')
-                buffer = (self.id + f'(init {angles})').encode()
+                angles = ' '.join(map(str, angles))
+                buffer = (self.id + f'-(init {angles})').encode()
                 self.logger.warning(f'Sending initial string: {buffer}')
 
                 try:

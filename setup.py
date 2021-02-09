@@ -5,7 +5,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setuptools.setup(
     name='capek',
-    version='0.8.0',
+    version='0.8.1',
     author='dikuchan',
     author_email='dikuchan@yahoo.com',
     description='A convenient template for developing racing robots',
