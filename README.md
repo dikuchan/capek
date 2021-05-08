@@ -8,7 +8,7 @@ A convenient template for developing TORCS SCR robots.
 
    The most convenient way is to install TORCS from [this repository](https://github.com/fmirus/torcs-1.3.7).
    The repository contains the most recent version of the simulator with [SCR](https://arxiv.org/pdf/1304.1672.pdf) 
-   patches that allow communicating with TORCS via UDP connection.
+   patches that allow communicating with TORCS via UDP.
    
    ```
    $ git clone https://github.com/fmirus/torcs-1.3.7.git
@@ -28,7 +28,7 @@ A convenient template for developing TORCS SCR robots.
    $ pip install capek --user
    ```
    
-3. Program the robot logic.
+3. Program the robot's logic.
 
    Example robots are located in `examples` directory.
    You could launch them to test the library. 
@@ -53,17 +53,25 @@ The common structure of a bot is demonstrated below.
 from capek import Driver, Client
 
 class MyDriver(Driver):
-    def drive(self):
+    def __init__(self, stage):
+        super().__init__(stage)
+        # ...
+        # Initialize necessary classes or variables.
+        # ...
+
+    def drive(self, state, control):
         # ...
         # Define behavior on gear change, steering, etc.
         # ...
 
-        if self.state.speed_X < 300:
-            self.control.accel = 1  
+        if state.speed_X < 300:
+            control.accel = 1  
         else:
-            self.control.accel = 0
+            control.accel = 0
 
-        # Changes in control are sent to TORCS on a next tick.
+        # Changes in control are sent to TORCS on the next tick.
+
+        return control
 
 client = Client(verbosity=1)
 # Enters loop until reaches maximum learning episodes.

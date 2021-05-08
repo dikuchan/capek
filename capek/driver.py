@@ -14,25 +14,24 @@ class Driver:
 
     def __init__(self, stage):
         self.stage = stage
-        self.state = None
-        self.control = Control()
 
     def tick(self, message: str) -> str:
         # Parse data received from TORCS.
-        self.state = State(message=message)
+        state = State(message=message)
 
         # Make decisions on driving.
-        self.drive()
+        control = Control()
+        control = self.drive(state, control)
 
         # Send decisions back to TORCS.
-        return str(self.control)
+        return str(control)
 
-    def drive(self):
+    def drive(self, state: State, control: Control) -> Control:
         """
-        `self.state` represents the current state of the game as perceived by the driver.
-        Method should change `self.control`, which represents the actions taken.
+        `state` represents the current state of the game as perceived by the driver.
+        Method should change `control`, which represents the actions taken and return the mutated object.
         """
-        pass
+        return control
 
     def on_shutdown(self):
         """

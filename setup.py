@@ -5,10 +5,10 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setuptools.setup(
     name='capek',
-    version='0.8.1',
+    version='0.8.2',
     author='dikuchan',
-    author_email='dikuchan@yahoo.com',
-    description='A convenient template for developing racing robots',
+    author_email='dikuchan@protonmail.com',
+    description='A convenient template for developing TORCS robots',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/dikuchan/capek',
