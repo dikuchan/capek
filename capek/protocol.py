@@ -3,7 +3,7 @@ import re
 
 class Protocol:
     @staticmethod
-    def decode(message: str):
+    def decode(message: str) -> dict:
         """
         Decode string of data using the SCR protocol.
         """
@@ -23,7 +23,7 @@ class Protocol:
         return result
 
     @staticmethod
-    def encode(structure: dict):
+    def encode(structure: dict) -> str:
         """
         Encode control data using the SCR protocol.
         """
