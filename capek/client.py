@@ -123,13 +123,12 @@ class Client:
 
                 self.logger.debug(f'Sending: {buffer}')
 
-                try:
-                    s.sendto(buffer.encode(), self.server)
-                except OSError as error:
-                    self.logger.error(f'Cannot send data: {error}')
-                    return
-                except TypeError:
-                    self.logger.warning(f'Cannot send empty data')
+                if buffer is not None:
+                    try:
+                        s.sendto(buffer.encode(), self.server)
+                    except OSError as error:
+                        self.logger.error(f'Cannot send data: {error}')
+                        return
 
             episode += 1
 
