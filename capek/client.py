@@ -66,11 +66,12 @@ class Client:
         shutdown = False
 
         while not shutdown:
+            self.logger.warning(f'Establishing connection to: {self.server}')
             while True:
-                self.logger.warning(f'Sending ID: {self.id}')
                 angles = ' '.join(map(str, angles))
-                buffer = (self.id + f'-(init {angles})').encode()
-                self.logger.warning(f'Sending initial string: {buffer}')
+                buffer = f'{self.id}-(init {angles})'
+                self.logger.info(f'Sending initial string: {buffer}')
+                buffer = buffer.encode()
 
                 try:
                     s.sendto(buffer, self.server)
@@ -81,11 +82,13 @@ class Client:
                 try:
                     buffer, _ = s.recvfrom(1000)
                 except OSError as error:
-                    self.logger.warning(f'Got no response from the server: {error}')
+                    self.logger.error(f'Got no response from the server: {error}')
 
                 if buffer.decode().find('***identified***') >= 0:
                     self.logger.debug(f'Received: {buffer}')
                 break
+
+            self.logger.warning('Established connection')
 
             step = 0
 
