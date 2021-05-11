@@ -19,53 +19,46 @@ for i in range(5, 9):
 
 # Inherit the template `Driver` class.
 class DummyDriver(capek.Driver):
-    previous_rpm = None
+    latency = 0
 
-    def steer(self):
-        # Get data from `state`.
-        angle = self.state.angle
-        distance = self.state.track_position
+    def steer(self, angle, distance):
+        return (angle - distance / 2) / 0.785398
 
-        # Set parameters in `control`.
-        self.control.steering = (angle - distance / 2) / 0.785398
+    def gear(self, rpm, gear):
+        self.latency += 1
 
-    def gear(self):
-        rpm = self.state.rpm
-        gear = self.state.gear
+        if not gear:
+            return 1, 1
+        elif self.latency < 7:
+            return gear, 0
+        elif rpm < 3000:
+            self.latency = 0
+            return gear - 1, 1
+        elif rpm > 7000:
+            self.latency = 0
+            return gear + 1, 1
 
-        if self.previous_rpm is None:
-            up = True
-        else:
-            up = self.previous_rpm - rpm < 0
+        return gear, 0
 
-        if up and rpm > 7000:
-            gear += 1
-        if not up and rpm < 3000:
-            gear -= 1
-
-        self.control.gear = gear
-
-    def speed(self):
-        speed = self.state.speed_X
-        accel = self.control.accel
-
+    def speed(self, speed, accel):
         if speed < 100:
             accel += 0.1
         else:
             accel -= 0.1
 
-        self.control.accel = accel
+        return accel
 
-    def drive(self):
+    def drive(self, state, control):
         # Control steering, gear and speed.
-        # A signal is sent after execution of the method is complete.
-        self.steer()
-        self.gear()
-        self.speed()
+        control.steering = self.steer(state.angle, state.track_position)
+        control.gear, control.clutch = self.gear(state.rpm, state.gear)
+        control.accel = self.speed(state.speed_X, control.accel)
+
+        return control
 
 
 if __name__ == '__main__':
     # Set up default client.
-    client = capek.Client()
+    client = capek.Client(verbosity=2)
     # Run client with `DummyDriver`.
     client.run(driver=DummyDriver, angles=angles)

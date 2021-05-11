@@ -14,17 +14,17 @@ class Driver:
 
     def __init__(self, stage):
         self.stage = stage
+        self.control = Control()
 
     def tick(self, message: str) -> str:
         # Parse data received from TORCS.
         state = State(message=message)
 
         # Make decisions on driving.
-        control = Control()
-        control = self.drive(state, control)
+        self.control = self.drive(state, self.control)
 
         # Send decisions back to TORCS.
-        return str(control)
+        return str(self.control)
 
     def drive(self, state: State, control: Control) -> Control:
         """
