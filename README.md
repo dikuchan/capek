@@ -1,6 +1,6 @@
 # Čapek
 
-A convenient template for developing TORCS SCR robots.
+Python library for developing TORCS racing robots.
 
 ## Getting started
 
