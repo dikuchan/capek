@@ -28,26 +28,25 @@ Python library for developing TORCS racing robots.
    $ pip install capek --user
    ```
    
-3. Program the robot's logic.
+3. Program a robot's logic.
 
-   Example robots are located in `examples` directory.
-   You could launch them to test the library. 
+   Reference robots are located in the `examples` directory. 
 
-4. Test your robot.
+4. Test the robot.
 
    1. Start TORCS.
    2. Select `Race → Practice → Configure Race → Accept`.
    3. Drop `scr_server 1` to the `Selected` menu.
-      This is the bot.
+      This is the robot.
    4. Select `Accept → Accept → New Race`.
-   5. Start the robot programed in the previous step.
+   5. Observe.
    
 5. Fix, if necessary.
 
 ## Creating robots
 
-To create a bot using _Čapek_, you have to re-implement the `Driver` class.
-The common structure of a bot is demonstrated below.
+To create a robot using _Čapek_, you have to re-implement the `Driver` class.
+The common structure of a robot is demonstrated below.
 
 ```python
 from capek import Driver, Client
